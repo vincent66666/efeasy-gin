@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.5.1
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.6
 	github.com/go-ini/ini v1.64.0 // indirect
 	github.com/go-playground/locales v0.14.0

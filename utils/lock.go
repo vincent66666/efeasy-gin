@@ -1,8 +1,8 @@
-package global
+package utils
 
 import (
 	"context"
-	"efeasy-gin/utils"
+	"efeasy-gin/global"
 	"github.com/go-redis/redis/v8"
 	"time"
 )
@@ -35,14 +35,14 @@ func Lock(name string, seconds int64) Interface {
 	return &lock{
 		context.Background(),
 		name,
-		utils.RandString(16),
+		RandString(16),
 		seconds,
 	}
 }
 
 // Get 获取锁
 func (l *lock) Get() bool {
-	return App.Redis.SetNX(l.context, l.name, l.owner, time.Duration(l.seconds)*time.Second).Val()
+	return global.App.Redis.SetNX(l.context, l.name, l.owner, time.Duration(l.seconds)*time.Second).Val()
 }
 
 // Block 阻塞一段时间，尝试获取锁
@@ -63,11 +63,11 @@ func (l *lock) Block(seconds int64) bool {
 // Release 释放锁
 func (l *lock) Release() bool {
 	luaScript := redis.NewScript(releaseLockLuaScript)
-	result := luaScript.Run(l.context, App.Redis, []string{l.name}, l.owner).Val().(int64)
+	result := luaScript.Run(l.context, global.App.Redis, []string{l.name}, l.owner).Val().(int64)
 	return result != 0
 }
 
 // ForceRelease 强制释放锁
 func (l *lock) ForceRelease() {
-	App.Redis.Del(l.context, l.name).Val()
+	global.App.Redis.Del(l.context, l.name).Val()
 }

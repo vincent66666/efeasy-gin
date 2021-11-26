@@ -3,6 +3,7 @@ package middleware
 import (
 	"efeasy-gin/app/service"
 	"efeasy-gin/global"
+	"efeasy-gin/utils"
 	"efeasy-gin/utils/response"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -46,7 +47,7 @@ func (jwtMiddleware *jwtMiddleware) JWTAuth(GuardName string) gin.HandlerFunc {
 
 		// token 续签
 		if claims.ExpiresAt-time.Now().Unix() < global.App.Config.Jwt.RefreshGracePeriod {
-			lock := global.Lock("refresh_token_lock", global.App.Config.Jwt.JwtBlacklistGracePeriod)
+			lock := utils.Lock("refresh_token_lock", global.App.Config.Jwt.JwtBlacklistGracePeriod)
 			if lock.Get() {
 				err, user := service.JwtService.GetUserInfo(GuardName, claims.Id)
 				if err != nil {
