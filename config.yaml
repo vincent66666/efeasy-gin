@@ -1,0 +1,72 @@
+app:
+  env: local
+  name: gin-app # 应用名称
+
+# 服务配置
+server:
+  http:
+    addr: 0.0.0.0
+    port: 8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0
+    port: 9000
+    timeout: 1s
+
+jwt:
+  secret: 3Bde3BGEbYqtqyEUzW3ry8jKFcaPH17fRmTmqE7MDr05Lwj95uruRKrrkb44TJ4s
+  jwt_ttl: 43200
+  jwt_blacklist_grace_period: 1800
+  refresh_grace_period: 1800
+
+minio:
+  endpoint: "127.0.0.1:9000"
+  access_key_id: "minioadmin"
+  secret_access_key: "minioadmin"
+
+database:
+  default:
+    driver: mysql # 数据库驱动
+    host: 127.0.0.1 # 域名
+    port: 3306 # 端口号
+    database: blog # 数据库名称
+    username: root # 用户名
+    password: Qfz115740. # 密码
+    charset: utf8mb4 # 编码格式
+    max_idle_conns: 10 # 空闲连接池中连接的最大数量
+    max_open_conns: 100 # 打开数据库连接的最大数量
+    enable_file_log_writer: true # 是否启用日志文件
+    logger_group: mysql # 日志文件名称
+
+redis:
+  default:
+    host: 127.0.0.1
+    port: 6379
+    db: 8
+    password: qfz115740.
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+
+# 日志配置
+logger:
+  default:
+    level: info # 日志等级
+    root_dir: ./runtime/logs # 日志根目录
+    filename: efeasy-gin.log # 日志文件名称
+    format: # 写入格式 可选json
+    show_line: true # 是否显示调用行
+    max_backups: 3 # 旧文件的最大个数
+    max_size: 500 # 日志文件最大大小（MB）
+    max_age: 28 # 旧文件的最大保留天数
+    compress: true # 是否压缩
+  mysql:
+    level: info # 日志等级
+    root_dir: ./runtime/logs # 日志根目录
+    filename: mysql.log # 日志文件名称
+    format: # 写入格式 可选json
+    show_line: true # 是否显示调用行
+    max_backups: 3 # 旧文件的最大个数
+    max_size: 500 # 日志文件最大大小（MB）
+    max_age: 28 # 旧文件的最大保留天数
+    compress: true # 是否压缩
+

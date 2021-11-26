@@ -1,0 +1,4 @@
+[2021-11-25 18:10:02.423]	local.info	efeasy-gin/main.go:14	Logger Init Success. 
+[2021-11-25 18:10:02.543]	local.info	efeasy-gin/main.go:18	Gorm Init Success. 
+[2021-11-25 18:10:02.543]	local.info	efeasy-gin/main.go:34	Validator Init Success. 
+[2021-11-25 18:10:11.940]	local.info	efeasy-gin/main.go:38	服务器启动成功. 
